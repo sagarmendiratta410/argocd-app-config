@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-deployment
+  name: guestbook-ui
 spec:
-  replicas: 2
+  replicas: 1
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: myapp
+      app: guestbook-ui
   template:
     metadata:
       labels:
-        app: myapp
+        app: guestbook-ui
     spec:
       containers:
-      - name: myapp
-        image: nanajanashia/argocd-app:1.0
-        ports:
-        - containerPort: 8080
+        - image: gcr.io/google-samples/gb-frontend:v5
+          name: guestbook-ui
+          ports:
+            - containerPort: 80
